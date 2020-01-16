@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import java.io.File
-import java.io.InputStream
 
 import com.example.environmentchallenge.R
 
@@ -30,18 +28,9 @@ class DailyChallengeFragment : Fragment() {
             ViewModelProviders.of(this).get(DailyChallengeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_daily_challenge, container, false)
         val textView: TextView = root.findViewById(R.id.text_daily_challenge)
-        val inputStream: InputStream = File("Challenge.txt").inputStream()
-        val lineList = mutableListOf<String>()
-
-        inputStream.bufferedReader().useLines {
-            lines -> lines.forEach { lineList.add(it) }
-        }
-        textView.text = lineList.forEach {
-            "->" + it
-        }.toString()
-//        dailyChallengeViewModel.text.observe(this, Observer {
-//            textView.text = it
-//        })
+        dailyChallengeViewModel.text.observe(this, Observer {
+            textView.text = it
+        })
         return root
     }
 
