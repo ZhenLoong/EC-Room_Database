@@ -1,0 +1,41 @@
+package com.example.environmentchallenge.ui.ranking
+
+import androidx.lifecycle.ViewModelProviders
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.lifecycle.Observer
+
+import com.example.environmentchallenge.R
+
+class RankingFragment : Fragment() {
+
+    companion object {
+        fun newInstance() = RankingFragment()
+    }
+
+    private lateinit var rankingViewModel: RankingViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        rankingViewModel = ViewModelProviders.of(this).get(RankingViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_ranking, container, false)
+        val textView: TextView = root.findViewById(R.id.text_ranking)
+        rankingViewModel.text.observe(this, Observer {
+            textView.text = it
+        })
+        return root
+    }
+
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//        rankingViewModel = ViewModelProviders.of(this).get(RankingViewModel::class.java)
+//        // TODO: Use the ViewModel
+//    }
+
+}
